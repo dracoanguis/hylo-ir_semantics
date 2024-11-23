@@ -1,0 +1,37 @@
+{
+  "enabled": true,
+  "preferences": {
+    "ribbon": true,
+    "tabs": false,
+    "statusBar": false,
+    "fileHeader": false,
+    "sideDockLeft": false,
+    "sideDockRight": false,
+    "fullScreen": false,
+    "autoHideZen": false
+  },
+  "global": {
+    "hideZenButton": true
+  },
+  "integrations": [
+    {
+      "enabled": false,
+      "available": true,
+      "name": "cm-typewriter-scroll-obsidian",
+      "description": "Automatically enable typewriter scroll when entering Zen mode.",
+      "options": {
+        "zenEnabled": {
+          "active": false,
+          "description": "Enable the darkening of non-active lines"
+        }
+      }
+    },
+    {
+      "enabled": false,
+      "available": true,
+      "name": "obsidian-stille",
+      "description": "Automatically enable Stille when entering Zen mode.",
+      "options": {}
+    }
+  ]
+}

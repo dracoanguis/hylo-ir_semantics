@@ -1,0 +1,48 @@
+
+pkgname=hylo-language-git
+pkgver=read.segfault.5714.g31475b7b
+pkgrel=1
+pkgdesc='The Hylo programming language'
+arch=('x86_64')
+url='https://www.hylo-lang.org/'
+license=('Apache-2.0')
+depends=('swift-bin>=5.10.0')
+makedepends=('cmake' 'git' 'clang' 'gcc' 'ninja')
+conflicts=("${pkgname}")
+options=(!lto)
+source=(git+https://github.com/hylo-lang/hylo
+	https://github.com/hylo-lang/llvm-build/releases/download/20240303-215025/llvm-17.0.6-x86_64-unknown-linux-gnu-MinSizeRel.tar.zst)
+sha1sums=('SKIP'
+	'176aba7705cd8a88e2d537c57707df8473c1783d')
+
+pkgver(){
+	cd hylo
+	git describe --long | sed 's/^v//;s/-/./g'
+}
+
+build(){
+
+	cd hylo
+
+	local LLVM="${srcdir}/llvm-17.0.6-x86_64-unknown-linux-gnu-MinSizeRel"
+
+	cmake -D CMAKE_BUILD_TYPE=Release \
+	  -D LLVM_DIR="${LLVM}/lib/cmake/llvm"   \
+	  -G Ninja -S . -B "build/" \
+	  -D BUILD_TESTING=1
+
+	cmake  --build "build/" --parallel 20
+}
+
+check(){
+	ctest --parallel --test-dir "build/"
+}
+
+package() {
+	cd hylo
+
+	install -Dm755 "build/Sources/hc" "${pkgdir}/usr/bin/hc"
+	# Is demangle useful ?
+	#install -Dm755 "${srcdir}/hylo-build/Sources/hylo-demangle" "${pkgdir}/usr/bin/hylo-demangle"
+}
+

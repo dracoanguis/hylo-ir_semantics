@@ -1,0 +1,11 @@
+{
+  "accentColor": "",
+  "cssTheme": "AnuPpuccin",
+  "theme": "moonstone",
+  "enabledCssSnippets": [
+    "extended-colorschemes",
+    "fix-pdf"
+  ],
+  "showViewHeader": true,
+  "baseFontSize": 16
+}
